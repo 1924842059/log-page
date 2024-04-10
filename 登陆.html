@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登陆界面</title>
+</head>
+<style>
+    body{
+        background-color: skyblue;
+    }
+    .denglukuang{
+        width: 400px;
+        height: 300px;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #fefefe;
+        border-radius: 10px;
+    }
+    .name{
+        padding-left: 25%;
+        
+        padding-top: 35px;
+    }
+    .zhushi{
+         padding-left: 25%;
+         font-size: 10px;
+         font-family: Arial, Helvetica, sans-serif;
+         font-style: italic;
+         font-weight: 20;
+    }
+    
+    
+    .mb-3{
+        margin-top: 50px;
+        padding-left: 20%;
+        font-weight: 20;
+    }
+    .mb-4{
+        margin-top: 20px;
+        padding-left: 20%;
+        font-weight: 20;
+    }
+    .btn-login{
+        margin-top: 30px;
+        margin-left: 140px;
+        border-radius: 5px;
+        background-color: aqua;
+        color: #fefefe;
+    }
+    .btn-zhuce{
+        margin-top: 30px;
+        border-radius: 5px;
+        background-color: aqua;
+        color: #fefefe;
+    }
+    </style>
+<body>
+    <div class="denglukuang">
+        <div class="name">
+           <strong>美食'湘'传用户登陆注册平台</strong> 
+        </div>
+        <div class="zhushi">
+            --一款让美食具象化的在线平台
+        </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">用户名:</label>
+        <input type="text" class="form-control username">
+    </div>
+    <div class="mb-4">
+        <label for="password" class="form-label">密码名:</label>
+        <input type="password" class="form-control password">
+    </div>
+    <button type="button" class="btn-login">登录</button>
+    <button type="button" class="btn-zhuce">注册</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script> 
+document.querySelector('.btn-zhuce').addEventListener('click',()=>{
+    //获取用户名密码
+    const username=document.querySelector('.username').value
+    const password=document.querySelector('.password').value
+    console.log(username,password)
+    //判断长度
+    if(username.length<8){
+        alert('用户名必须大于等于8位')//错误弹出
+        return 
+    }
+    if(password.length<6){
+        alert('密码必须大于等于6位')
+        return 
+    }
+    //基于axios提交用户名和密码
+    axios({
+        url:'https://hmajax.itheima.net/api/register',
+        method:'POST',
+        data:{
+            username,
+            password
+        }
+    }).then(result=>{
+        console.log(result)
+        console.log(result.data.message)
+    }).catch(error=>{
+        console.log(error)
+        console.log(error.response.data.message)
+    })
+})
+document.querySelector('.btn-login').addEventListener('click',()=>{
+    const username=document.querySelector('.username').value
+    const password=document.querySelector('.password').value
+axios({
+        url:'https://hmajax.itheima.net/api/login',
+        method:'POST',
+        data:{
+            username,
+            password
+        }
+    }).then(result=>{
+        console.log(result)
+        console.log(result.data.message)
+    }).catch(error=>{
+        console.log(error)
+        console.log(error.response.data.message)
+    })
+})
+    </script>
+</body>
+</html>
